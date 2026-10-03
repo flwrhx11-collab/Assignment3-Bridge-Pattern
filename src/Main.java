@@ -1,17 +1,19 @@
 import channels.Channel;
 import channels.EmailChannel;
 import channels.SmsChannel;
+import channels.PushChannel;
 import notifications.Notification;
 import notifications.Reminder;
 import notifications.UrgentAlert;
 
 public class Main {
     static int passed = 0;
-    static int total = 5;
+    static int total = 7;
 
     public static void main(String[] args) {
         Channel email = new EmailChannel();
         Channel sms = new SmsChannel();
+        Channel push = new PushChannel();
 
         Notification t1App = new Reminder("ID-1", "Doctor appointment", email);
         check("T1", t1App, "Reminder", "EmailChannel", "Email envelope: Reminder: Doctor appointment");
@@ -48,7 +50,13 @@ public class Main {
             System.out.println("T5 FAIL");
         }
 
-        System.out.println("SUMMARY: " + passed + "/" + total + " PASS (Base Version)");
+        Notification t6App = new Reminder("ID-6", "Update app", push);
+        check("T6", t6App, "Reminder", "PushChannel", "Push envelope: Reminder: Update app");
+
+        Notification t7App = new UrgentAlert("ID-7", "Security breach", push);
+        check("T7", t7App, "UrgentAlert", "PushChannel", "Push envelope: [URGENT] Security breach");
+
+        System.out.println("SUMMARY: " + passed + "/" + total + " PASS");
     }
 
     private static void check(String id, Notification app, String aName, String iName, String expected) {
