@@ -9,6 +9,8 @@
 
 **Base Commit Hash:** e8938accf94a28dd491483ba7d8f0d0a4988efb5
 
+**Submitted Commit Hash:** 9d055fa81f4b88ddd3a775285e10ef1b94457cfc
+
 ## Role Map
 | Role | Class | Source Path |
 |---|---|---|
@@ -31,4 +33,12 @@ javac --release 17 -encoding UTF-8 -d out "@sources.txt"
 java -cp out Main
 
 ## Expected Outcomes
-(Скопируй сюда весь текст из твоего файла demo-output.txt)
+T1 PASS | Reminder + EmailChannel | result=Email envelope: Reminder: Doctor appointment
+T2 PASS | Reminder + SmsChannel | result=SMS single-line: Reminder: Buy milk
+T3 PASS | UrgentAlert + EmailChannel | result=Email envelope: [URGENT] Server down
+T4 PASS | UrgentAlert + SmsChannel | result=SMS single-line: [URGENT] Payment failed
+T5 PASS sameObject=true | stateUnchanged=true
+before=Email envelope: Reminder: Meeting at 5 | after=SMS single-line: Reminder: Meeting at 5
+T6 PASS | Reminder + PushChannel | result=Push envelope: Reminder: Update app
+T7 PASS | UrgentAlert + PushChannel | result=Push envelope: [URGENT] Security breach
+SUMMARY: 7/7 PASS
